@@ -36,7 +36,7 @@ public class PlanoDeSaude {
 	// ***Retorna Dados do Plano***
 	public String getDadosDoPlano () {
 		
-		return "Plano: " + this.operadora + ", " + this.tipoDoPlano + ".";
+		return this.operadora + ", " + this.tipoDoPlano + ".";
 		
 	}
 	

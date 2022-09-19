@@ -1,0 +1,19 @@
+package br.senai.sp.jandira.model;
+
+public enum Estados {
+
+	MATO_GROSSO,
+	MINAS_GERAIS,
+	BAHIA,
+	PARANA,
+	GOIAS,
+	CEARA,
+	SANTA_CATARINA,
+	RIO_GRANDE_DO_SUL,
+	SAO_PAULO,
+	RIO_DE_JANEIRO,
+	PERNAMBUCO,
+	PARA,
+	AMAZONAS
+	
+}
