@@ -23,6 +23,13 @@ public class ClinicaApp {
 		plano.setOperadora("Unimed");
 		plano.setTipoDoPlano("Prata");
 		
+		PlanoDeSaude plano1 = new PlanoDeSaude();
+		plano1.setOperadora("Bradesco");
+		plano1.setTipoDoPlano("Ouro");
+		
+		PlanoDeSaude plano2 = new PlanoDeSaude("Amil");
+		plano2.setTipoDoPlano("Prata");
+		
 		//criar um endereço
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro("Rua Urano");
