@@ -59,6 +59,11 @@ public class PlanoDeSaude {
 		return this.operadora + ", " + this.tipoDoPlano + ".";
 		
 	}
+
+    public Integer getCodigo() {
+        return codigo;
+    }
 	
+        
 
 }
