@@ -5,7 +5,9 @@
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import java.awt.Color;
 import javax.imageio.plugins.jpeg.JPEGQTable;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -20,8 +22,17 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
-        criarTabelaPlanosDeSaude();
+        initPanels();
     }
+    
+    // Atributos da classe
+    PanelPlanosDeSaude panelPlanosDeSaude;
+    
+    // Constantes da classe
+    private final int POSICAO_X = 30;
+    private final int POSICAO_Y = 170;
+    private final int LARGURA = 890;
+    private final int ALTURA = 390;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,17 +47,18 @@ public class MainFrame extends javax.swing.JFrame {
         tituloLabel = new javax.swing.JLabel();
         iconLabel = new javax.swing.JLabel();
         buttonSair = new javax.swing.JButton();
+        buttonHome = new javax.swing.JButton();
         buttonAgenda = new javax.swing.JButton();
         buttonPacientes = new javax.swing.JButton();
         buttonMedicos = new javax.swing.JButton();
         buttonEspecialidades = new javax.swing.JButton();
         buttonPlanosDeSaude = new javax.swing.JButton();
-        panelPlanoDeSaude = new javax.swing.JPanel();
-        scrollPanePlanosDeSaude = new javax.swing.JScrollPane();
-        tablePlanosDeSaude = new javax.swing.JTable();
-        buttonEditar = new javax.swing.JButton();
-        buttonAdicionar = new javax.swing.JButton();
-        buttonExcluir = new javax.swing.JButton();
+        panelHome = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Agendamento de Consultas");
@@ -69,9 +81,11 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(jPanel2);
         jPanel2.setBounds(0, 0, 940, 90);
 
+        buttonSair.setBackground(new java.awt.Color(254, 255, 255));
         buttonSair.setForeground(new java.awt.Color(255, 51, 51));
         buttonSair.setText("Sair");
         buttonSair.setBorder(null);
+        buttonSair.setFocusable(false);
         buttonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSairActionPerformed(evt);
@@ -80,123 +94,120 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(buttonSair);
         buttonSair.setBounds(840, 100, 90, 40);
 
+        buttonHome.setBackground(new java.awt.Color(228, 228, 228));
+        buttonHome.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        buttonHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/home.png"))); // NOI18N
+        buttonHome.setBorder(null);
+        buttonHome.setFocusable(false);
+        buttonHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHomeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(buttonHome);
+        buttonHome.setBounds(40, 100, 50, 40);
+
+        buttonAgenda.setBackground(new java.awt.Color(254, 255, 255));
         buttonAgenda.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         buttonAgenda.setText("Agenda");
         buttonAgenda.setBorder(null);
+        buttonAgenda.setFocusable(false);
         buttonAgenda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAgendaActionPerformed(evt);
             }
         });
         getContentPane().add(buttonAgenda);
-        buttonAgenda.setBounds(30, 100, 130, 40);
+        buttonAgenda.setBounds(160, 100, 110, 40);
 
+        buttonPacientes.setBackground(new java.awt.Color(254, 255, 255));
         buttonPacientes.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         buttonPacientes.setText("Pacientes");
         buttonPacientes.setToolTipText("");
         buttonPacientes.setBorder(null);
+        buttonPacientes.setFocusable(false);
         buttonPacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPacientesActionPerformed(evt);
             }
         });
         getContentPane().add(buttonPacientes);
-        buttonPacientes.setBounds(170, 100, 130, 40);
+        buttonPacientes.setBounds(280, 100, 110, 40);
 
+        buttonMedicos.setBackground(new java.awt.Color(254, 255, 255));
         buttonMedicos.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
         buttonMedicos.setText("Médicos");
         buttonMedicos.setBorder(null);
+        buttonMedicos.setFocusable(false);
         buttonMedicos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMedicosActionPerformed(evt);
             }
         });
         getContentPane().add(buttonMedicos);
-        buttonMedicos.setBounds(310, 100, 130, 40);
+        buttonMedicos.setBounds(400, 100, 110, 40);
 
+        buttonEspecialidades.setBackground(new java.awt.Color(254, 255, 255));
         buttonEspecialidades.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         buttonEspecialidades.setText("Especialidades");
         buttonEspecialidades.setBorder(null);
+        buttonEspecialidades.setFocusable(false);
         buttonEspecialidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEspecialidadesActionPerformed(evt);
             }
         });
         getContentPane().add(buttonEspecialidades);
-        buttonEspecialidades.setBounds(450, 100, 130, 40);
+        buttonEspecialidades.setBounds(520, 100, 110, 40);
 
-        buttonPlanosDeSaude.setBackground(new java.awt.Color(234, 255, 255));
+        buttonPlanosDeSaude.setBackground(new java.awt.Color(254, 255, 255));
         buttonPlanosDeSaude.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        buttonPlanosDeSaude.setForeground(new java.awt.Color(0, 51, 255));
         buttonPlanosDeSaude.setText("Planos de Saúde");
         buttonPlanosDeSaude.setBorder(null);
+        buttonPlanosDeSaude.setFocusable(false);
         buttonPlanosDeSaude.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlanosDeSaudeActionPerformed(evt);
             }
         });
         getContentPane().add(buttonPlanosDeSaude);
-        buttonPlanosDeSaude.setBounds(590, 100, 130, 40);
+        buttonPlanosDeSaude.setBounds(640, 100, 110, 40);
 
-        panelPlanoDeSaude.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Planos de Saúde:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 18), new java.awt.Color(255, 51, 51))); // NOI18N
-        panelPlanoDeSaude.setLayout(null);
+        panelHome.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "HOME", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 1, 18), new java.awt.Color(0, 153, 255))); // NOI18N
+        panelHome.setFocusCycleRoot(true);
+        panelHome.setLayout(null);
 
-        tablePlanosDeSaude.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        tablePlanosDeSaude.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tablePlanosDeSaude.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
-        scrollPanePlanosDeSaude.setViewportView(tablePlanosDeSaude);
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 2, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel1.setText("SISACON");
+        panelHome.add(jLabel1);
+        jLabel1.setBounds(40, 50, 640, 64);
 
-        panelPlanoDeSaude.add(scrollPanePlanosDeSaude);
-        scrollPanePlanosDeSaude.setBounds(10, 30, 870, 290);
+        jLabel2.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        jLabel2.setText("Sistema para Agendamento de Consultas");
+        panelHome.add(jLabel2);
+        jLabel2.setBounds(40, 100, 330, 30);
 
-        buttonEditar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        buttonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/edit.png"))); // NOI18N
-        buttonEditar.setToolTipText("editar plano de saúde selecionado ");
-        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEditarActionPerformed(evt);
-            }
-        });
-        panelPlanoDeSaude.add(buttonEditar);
-        buttonEditar.setBounds(780, 330, 40, 40);
+        jLabel3.setFont(new java.awt.Font("Segoe UI Light", 2, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel3.setText("Dados para contato:");
+        panelHome.add(jLabel3);
+        jLabel3.setBounds(40, 230, 180, 25);
 
-        buttonAdicionar.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        buttonAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/add.png"))); // NOI18N
-        buttonAdicionar.setToolTipText("adicionar plano de saúde");
-        buttonAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAdicionarActionPerformed(evt);
-            }
-        });
-        panelPlanoDeSaude.add(buttonAdicionar);
-        buttonAdicionar.setBounds(830, 330, 40, 40);
+        jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel4.setText("Telefone: (11)98877-5183");
+        panelHome.add(jLabel4);
+        jLabel4.setBounds(40, 280, 240, 20);
 
-        buttonExcluir.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        buttonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/delete.png"))); // NOI18N
-        buttonExcluir.setToolTipText("deletar plano de saúde selecionado");
-        buttonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExcluirActionPerformed(evt);
-            }
-        });
-        panelPlanoDeSaude.add(buttonExcluir);
-        buttonExcluir.setBounds(730, 330, 40, 40);
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel5.setText("E-mail: eduardorpimentaa@gmail.com");
+        panelHome.add(jLabel5);
+        jLabel5.setBounds(40, 260, 240, 20);
 
-        getContentPane().add(panelPlanoDeSaude);
-        panelPlanoDeSaude.setBounds(30, 170, 890, 390);
+        getContentPane().add(panelHome);
+        panelHome.setBounds(30, 170, 890, 390);
 
-        setBounds(0, 0, 955, 598);
+        setBounds(0, 0, 955, 618);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
@@ -220,58 +231,50 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonEspecialidadesActionPerformed
 
     private void buttonPlanosDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlanosDeSaudeActionPerformed
-        // TODO add your handling code here:
+             
+        panelHome.setVisible(false);
+        panelPlanosDeSaude.setVisible(true);
+        buttonPlanosDeSaude.setBackground(new Color(228,228,228));
+        buttonHome.setBackground(new Color(255,255,255));
+        
+        
     }//GEN-LAST:event_buttonPlanosDeSaudeActionPerformed
 
-    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonEditarActionPerformed
-
-    private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonAdicionarActionPerformed
-
-    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buttonExcluirActionPerformed
+    private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
+        
+        panelHome.setVisible(true);
+        panelPlanosDeSaude.setVisible(false);
+        buttonHome.setBackground(new Color(228,228,228));
+        buttonPlanosDeSaude.setBackground(new Color(255,255,255));
+    }//GEN-LAST:event_buttonHomeActionPerformed
 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAdicionar;
     private javax.swing.JButton buttonAgenda;
-    private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonEspecialidades;
-    private javax.swing.JButton buttonExcluir;
+    private javax.swing.JButton buttonHome;
     private javax.swing.JButton buttonMedicos;
     private javax.swing.JButton buttonPacientes;
     private javax.swing.JButton buttonPlanosDeSaude;
     private javax.swing.JButton buttonSair;
     private javax.swing.JLabel iconLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel panelPlanoDeSaude;
-    private javax.swing.JScrollPane scrollPanePlanosDeSaude;
-    private javax.swing.JTable tablePlanosDeSaude;
+    private javax.swing.JPanel panelHome;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
 
-    private void criarTabelaPlanosDeSaude() {
-       tablePlanosDeSaude.setModel(PlanoDeSaudeDAO.getTableModel());
-       
-       // Desativar
-       tablePlanosDeSaude.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-       
-       // Definir a largura de cada coluna
-       tablePlanosDeSaude.getColumnModel().getColumn(0).setPreferredWidth(100);
-       tablePlanosDeSaude.getColumnModel().getColumn(1).setPreferredWidth(400);
-       tablePlanosDeSaude.getColumnModel().getColumn(2).setPreferredWidth(367);
-       
-       //impedir movimentação da coluna
-       tablePlanosDeSaude.getTableHeader().setReorderingAllowed(false);
-       
-       //impedir edição das linhas
-       tablePlanosDeSaude.setDefaultEditor(Object.class, null);
-       
-       
+    private void initPanels() {
+        panelPlanosDeSaude = new PanelPlanosDeSaude();
+        panelPlanosDeSaude.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
+        panelPlanosDeSaude.setVisible(false);
+        getContentPane().add(panelPlanosDeSaude);
     }
+
+
 }
