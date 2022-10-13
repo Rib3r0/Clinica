@@ -4,6 +4,10 @@
  */
 package br.senai.sp.jandira.ui;
 
+import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import br.senai.sp.jandira.model.PlanoDeSaude;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 22282115
@@ -74,6 +78,8 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
         textFieldTipoDoPlano.setBounds(40, 190, 280, 30);
         jPanel2.add(textFieldNomeDaOperadora);
         textFieldNomeDaOperadora.setBounds(40, 130, 280, 30);
+
+        textFieldCodigo.setEditable(false);
         jPanel2.add(textFieldCodigo);
         textFieldCodigo.setBounds(40, 70, 80, 30);
 
@@ -81,13 +87,13 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(0, 153, 255));
         jLabel2.setText("Tipo do Plano:");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(40, 170, 130, 20);
+        jLabel2.setBounds(40, 170, 90, 20);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 153, 255));
         jLabel3.setText("Nome da Operadora:");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(40, 110, 140, 20);
+        jLabel3.setBounds(40, 110, 130, 20);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 255));
@@ -97,6 +103,11 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
 
         buttonSalvar.setBackground(new java.awt.Color(255, 255, 254));
         buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/salvar.png"))); // NOI18N
+        buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalvarActionPerformed(evt);
+            }
+        });
         jPanel2.add(buttonSalvar);
         buttonSalvar.setBounds(620, 310, 50, 40);
 
@@ -121,10 +132,50 @@ public class DialogPlanosDeSaude extends javax.swing.JDialog {
     }//GEN-LAST:event_textFieldTipoDoPlanoActionPerformed
 
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
-        
+
         dispose();
-        
+
     }//GEN-LAST:event_buttonCancelarActionPerformed
+
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
+        // Criar um objeto plano de saúde
+        PlanoDeSaude planoDeSaude = new PlanoDeSaude();
+        planoDeSaude.setOperadora(textFieldNomeDaOperadora.getText());
+        planoDeSaude.setTipoDoPlano(textFieldTipoDoPlano.getText());
+
+        if (validarCadastro()) {
+            PlanoDeSaudeDAO.gravar(planoDeSaude);
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Plano de saúde gravado com sucesso!",
+                    "Plano de Saúde",
+                    JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+        }
+
+    }//GEN-LAST:event_buttonSalvarActionPerformed
+
+    private boolean validarCadastro() {
+        if (textFieldNomeDaOperadora.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor preencha o nome da operadora!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+            textFieldNomeDaOperadora.requestFocus();
+            return false;
+        }
+        if (textFieldTipoDoPlano.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor preencha o tipo do plano!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+            textFieldTipoDoPlano.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments

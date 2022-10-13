@@ -21,9 +21,8 @@ public class testeDAO {
         PlanoDeSaude plano3 = new PlanoDeSaude("Unimed", "Prata");
         PlanoDeSaude plano4 = new PlanoDeSaude("Notredame", "Ouro");
 
-        PlanoDeSaudeDAO dao = new PlanoDeSaudeDAO();
-        dao.gravar(plano1);
-        dao.gravar(plano2);
+        PlanoDeSaudeDAO.gravar(plano1);
+        PlanoDeSaudeDAO.gravar(plano2);
 
         for (PlanoDeSaude plano : PlanoDeSaudeDAO.listarTodos()) {
             System.out.println(plano.getOperadora());
