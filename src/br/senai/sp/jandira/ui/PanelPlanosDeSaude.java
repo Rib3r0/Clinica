@@ -5,6 +5,8 @@
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import br.senai.sp.jandira.model.TipoOperacao;
+import br.senai.sp.jandira.model.PlanoDeSaude;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -14,9 +16,8 @@ import javax.swing.JTable;
  */
 public class PanelPlanosDeSaude extends javax.swing.JPanel {
 
-    /**
-     * Creates new form panelPlanosDeSaude
-     */
+    int linha;
+
     public PanelPlanosDeSaude() {
         initComponents();
         criarTabelaPlanosDeSaude();
@@ -98,48 +99,78 @@ public class PanelPlanosDeSaude extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        // TODO add your handling code here:
+        
+       linha = tablePlanosDeSaude.getSelectedRow();
+       if(linha != -1){
+            editar();
+        } else {
+                JOptionPane.showMessageDialog(
+                this, 
+                "Por favor, selecione um plano de saúde para alterar.",
+                "Planos de Saúde",
+                JOptionPane.WARNING_MESSAGE);
+                }      
+       
+        criarTabelaPlanosDeSaude();
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
-        
-        DialogPlanosDeSaude dialogPlanosDeSaude = new DialogPlanosDeSaude(null, true);
+
+        DialogPlanosDeSaude dialogPlanosDeSaude = new DialogPlanosDeSaude(null, true, TipoOperacao.ADICIONAR, null);
         dialogPlanosDeSaude.setVisible(true);
-        
+
         criarTabelaPlanosDeSaude();
-        
+
     }//GEN-LAST:event_buttonAdicionarActionPerformed
 
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+
+        //obtemos o índice da linha selecionada na tabela
+        linha = tablePlanosDeSaude.getSelectedRow();
+
+        //verificamos se a linha é diferente de -1
+        //-1 significa que o usuario n selecionou nada
+        if (linha != -1) {
+            excluir();
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, selecione o plano que você deseja excluir!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+
+    }//GEN-LAST:event_buttonExcluirActionPerformed
+
+    private void editar(){
+        
+        PlanoDeSaude planoDeSaude = PlanoDeSaudeDAO.getPlanoDeSaude(getCodigo());
+        
+        DialogPlanosDeSaude dialogPlanosDeSaude = new DialogPlanosDeSaude(null, true, TipoOperacao.ALTERAR, planoDeSaude);
+        dialogPlanosDeSaude.setVisible(true);
+        criarTabelaPlanosDeSaude();
+    }
     
+    private void excluir() {
+
         int resposta = JOptionPane.showConfirmDialog(this,
                 "Você comfirma a exclusão do plano de saúde selecionado?",
                 "Plano de Saúde",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
-        System.out.println(resposta);
-        
-        if(resposta !=0){
-            
-        }
-        
-        int linha = tablePlanosDeSaude.getSelectedRow();
-        
-        if (linha != -1){
-            String codigoStr = tablePlanosDeSaude.getValueAt(linha, 0).toString();
-            Integer codigo = Integer.valueOf(codigoStr);
-            PlanoDeSaudeDAO.excluir(codigo);
+                       
+        if(resposta == 0){
+            PlanoDeSaudeDAO.excluir(getCodigo());
             criarTabelaPlanosDeSaude();
-        }else{
-            JOptionPane.showMessageDialog(
-                    this, 
-                    "Por favor, selecione o plano que você deseja excluir!",
-                    "Plano de Saúde",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_buttonExcluirActionPerformed
-
+        }        
+            
+    }
+    
+    private Integer getCodigo(){
+            String codigoStr = tablePlanosDeSaude.getValueAt(linha, 0).toString();
+            return Integer.valueOf(codigoStr);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdicionar;

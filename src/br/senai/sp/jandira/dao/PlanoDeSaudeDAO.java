@@ -31,6 +31,25 @@ public class PlanoDeSaudeDAO {
         }
         return false;
     }
+    public static PlanoDeSaude getPlanoDeSaude(Integer codigo){
+        
+        for(PlanoDeSaude ps : planos){
+            if(ps.getCodigo().equals(codigo)){
+                return ps;
+            }
+        }
+        
+        return null;
+    }
+    
+    public static void atualizar(PlanoDeSaude planoDeSaude){
+         for(PlanoDeSaude ps : planos){
+            if(ps.getCodigo().equals(planoDeSaude.getCodigo())){
+                planos.set(planos.indexOf(ps), planoDeSaude);
+                break;
+            }
+        }
+    }
 
     public static ArrayList<PlanoDeSaude> listarTodos() {
         return planos;
