@@ -60,9 +60,9 @@ public class PlanoDeSaude {
 		
 	}
 
-    public Integer getCodigo() {
-        return codigo;
-    }
+        public Integer getCodigo() {
+            return codigo;
+        }
 	
         
 

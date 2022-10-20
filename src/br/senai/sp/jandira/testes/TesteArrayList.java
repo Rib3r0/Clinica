@@ -76,8 +76,7 @@ public class TesteArrayList {
 			System.out.println(especialidade.getNome() + " --> " + especialidade.getDescricao());
 		}
 		
-		System.out.println(pediatria.getQuantidade());
-		System.out.println(cardiologia.getQuantidade());
+		
 		
 		
 		

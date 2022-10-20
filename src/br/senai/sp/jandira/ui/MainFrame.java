@@ -4,10 +4,15 @@
  */
 package br.senai.sp.jandira.ui;
 
+import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import java.awt.Button;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.imageio.plugins.jpeg.JPEGQTable;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 /**
@@ -22,12 +27,16 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
+        EspecialidadeDAO.criarEspecialidadesTeste();
         initPanels();
     }
-    
+
     // Atributos da classe
+    JButton ultimoButton;
+    JPanel ultimoPanel;
     PanelPlanosDeSaude panelPlanosDeSaude;
-    
+    PanelEspecialidade panelEspecialidade;
+
     // Constantes da classe
     private final int POSICAO_X = 30;
     private final int POSICAO_Y = 170;
@@ -215,39 +224,65 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSairActionPerformed
 
     private void buttonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgendaActionPerformed
-        // TODO add your handling code here:
+        mudarCor(buttonAgenda);
     }//GEN-LAST:event_buttonAgendaActionPerformed
 
     private void buttonPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPacientesActionPerformed
-        // TODO add your handling code here:
+        mudarCor(buttonPacientes);
     }//GEN-LAST:event_buttonPacientesActionPerformed
 
     private void buttonMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMedicosActionPerformed
-        // TODO add your handling code here:
+        mudarCor(buttonMedicos);
     }//GEN-LAST:event_buttonMedicosActionPerformed
 
     private void buttonEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEspecialidadesActionPerformed
-        // TODO add your handling code here:
+        mudarPanel(panelEspecialidade);
+        mudarCor(buttonEspecialidades);
+
     }//GEN-LAST:event_buttonEspecialidadesActionPerformed
 
     private void buttonPlanosDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlanosDeSaudeActionPerformed
-             
-        panelHome.setVisible(false);
-        panelPlanosDeSaude.setVisible(true);
-        buttonPlanosDeSaude.setBackground(new Color(228,228,228));
-        buttonHome.setBackground(new Color(255,255,255));
-        
-        
+
+        mudarPanel(panelPlanosDeSaude);
+        mudarCor(buttonPlanosDeSaude);
+
+
     }//GEN-LAST:event_buttonPlanosDeSaudeActionPerformed
 
     private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
-        
-        panelHome.setVisible(true);
-        panelPlanosDeSaude.setVisible(false);
-        buttonHome.setBackground(new Color(228,228,228));
-        buttonPlanosDeSaude.setBackground(new Color(255,255,255));
+
+        mudarPanel(panelHome);
+        mudarCor(buttonHome);
+
     }//GEN-LAST:event_buttonHomeActionPerformed
 
+    public void mudarCor(JButton button) {
+        button.setBackground(new Color(228, 228, 228));
+
+        if (this.ultimoButton == null) {
+            this.ultimoButton = buttonHome;
+            this.ultimoButton.setBackground(new Color(255, 255, 255));
+        } else if (this.ultimoButton == button) {
+
+        } else {
+            this.ultimoButton.setBackground(new Color(255, 255, 255));
+        }
+        this.ultimoButton = button;
+    }
+
+    public void mudarPanel(JPanel panel) {
+        if (this.ultimoPanel == null) {
+            this.ultimoPanel = panelHome;
+            this.ultimoPanel.setVisible(false);
+            panel.setVisible(true);
+        } else if (this.ultimoPanel == panel) {
+
+        } else {
+            this.ultimoPanel.setVisible(false);
+            panel.setVisible(true);
+        }
+        this.ultimoPanel = panel;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -275,6 +310,5 @@ public class MainFrame extends javax.swing.JFrame {
         panelPlanosDeSaude.setVisible(false);
         getContentPane().add(panelPlanosDeSaude);
     }
-
 
 }
