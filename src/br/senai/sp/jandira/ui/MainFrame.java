@@ -6,12 +6,8 @@ package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
-import java.awt.Button;
 import java.awt.Color;
-import java.util.ArrayList;
-import javax.imageio.plugins.jpeg.JPEGQTable;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -220,7 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSairActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_buttonSairActionPerformed
 
     private void buttonAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgendaActionPerformed
@@ -238,22 +234,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEspecialidadesActionPerformed
         mudarPanel(panelEspecialidade);
         mudarCor(buttonEspecialidades);
-
     }//GEN-LAST:event_buttonEspecialidadesActionPerformed
 
     private void buttonPlanosDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlanosDeSaudeActionPerformed
-
         mudarPanel(panelPlanosDeSaude);
         mudarCor(buttonPlanosDeSaude);
-
-
     }//GEN-LAST:event_buttonPlanosDeSaudeActionPerformed
 
     private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
-
         mudarPanel(panelHome);
         mudarCor(buttonHome);
-
     }//GEN-LAST:event_buttonHomeActionPerformed
 
     public void mudarCor(JButton button) {
@@ -309,6 +299,12 @@ public class MainFrame extends javax.swing.JFrame {
         panelPlanosDeSaude.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
         panelPlanosDeSaude.setVisible(false);
         getContentPane().add(panelPlanosDeSaude);
+        
+        panelEspecialidade = new PanelEspecialidade();
+        panelEspecialidade.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
+        panelEspecialidade.setVisible(false);
+        getContentPane().add(panelEspecialidade);
+        
     }
 
 }

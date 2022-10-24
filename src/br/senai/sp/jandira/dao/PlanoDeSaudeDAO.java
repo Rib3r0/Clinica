@@ -1,7 +1,6 @@
 package br.senai.sp.jandira.dao;
 
 import java.util.ArrayList;
-
 import br.senai.sp.jandira.model.PlanoDeSaude;
 import javax.swing.table.DefaultTableModel;
 
