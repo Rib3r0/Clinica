@@ -9,7 +9,6 @@ import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 
 /**
  *
@@ -24,7 +23,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
         EspecialidadeDAO.criarEspecialidadesTeste();
-        initPanels();
+        initPanels();   
     }
 
     // Atributos da classe
@@ -304,6 +303,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelEspecialidade.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
         panelEspecialidade.setVisible(false);
         getContentPane().add(panelEspecialidade);
+       
         
     }
 

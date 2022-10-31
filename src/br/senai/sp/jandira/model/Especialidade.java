@@ -19,10 +19,16 @@ public class Especialidade {
         this.codigo = contador;
         contador++;
     }
-        public Especialidade(String nome,String descricao) {
+    public Especialidade(String nome,String descricao) {
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = contador;
+        contador++;
+    }
+    public Especialidade(Integer codigo, String nome,String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+        this.codigo = codigo;
         contador++;
     }
 
@@ -48,6 +54,10 @@ public class Especialidade {
 
     public Integer getCodigo() {
         return codigo;
+    }
+    
+    public String getEspecialidadeComPontoVirgula(){
+        return this.getCodigo() + ";" + this.getNome() + ";" + this.getDescricao();
     }
 
 }
