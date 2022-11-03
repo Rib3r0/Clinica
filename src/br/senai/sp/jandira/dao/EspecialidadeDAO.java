@@ -1,8 +1,10 @@
 package br.senai.sp.jandira.dao;
 
 import br.senai.sp.jandira.model.Especialidade;
+import br.senai.sp.jandira.model.PlanoDeSaude;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +20,9 @@ public class EspecialidadeDAO {
     private static ArrayList<Especialidade> especialidades = new ArrayList();
     
     private static final String caminho ="C:\\Users\\22282115\\Java\\especialidade.txt";
+    private static final String caminho_temp ="C:\\Users\\22282115\\Java\\especialidade_temp.txt";
     private static final Path path = Paths.get(caminho) ;
+    private static final Path path_temp = Paths.get(caminho_temp) ;
     public static BufferedWriter bw;
    
 
@@ -52,9 +56,11 @@ public class EspecialidadeDAO {
         for (Especialidade e : especialidades) {
             if (e.getCodigo().equals(codigo)) {
                 especialidades.remove(e);
-                return true;
+                break;
             }
-        }
+        }            
+        atualizarArquivo();
+        
         return false;
     }
 
@@ -64,8 +70,9 @@ public class EspecialidadeDAO {
                 especialidades.set(especialidades.indexOf(e), especialidade);
                 break;
             }
-
+            atualizarArquivo();
         }
+
     }
     
 
@@ -83,12 +90,47 @@ public class EspecialidadeDAO {
     }
 
     
-    public static void criarEspecialidadesTeste(){
+    private static void atualizarArquivo(){
+                        //reconstruir um arquivo atualizado
+        
+        //Passo 01 - Criar uma representação dos arquivos que vão ser manipulados
+        File arquivoAtual = new File(caminho);
+        File arquivoTemp = new File(caminho_temp);
+        
+        try {
+            //criar arquivo temporário
+            arquivoTemp.createNewFile();
+            //abre o arquivo para escrita
+            BufferedWriter bwTemp = Files.newBufferedWriter(
+                    path_temp, 
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.WRITE);
+            
+            for(Especialidade e : especialidades){
+                bwTemp.write(e.getEspecialidadeComPontoVirgula());
+                bwTemp.newLine();
+            }
+            bwTemp.close();
+            arquivoAtual.delete();
+            arquivoTemp.renameTo(arquivoAtual);
+            
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Ocorreu um erro na hora de criar o arquivo!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }
+    }
+    
+    public static void getListaEspecialidades(){
         try {     
             BufferedReader br = Files.newBufferedReader(path);
             String linha = "";
             linha = br.readLine();
-            while(linha != null){
+            while(linha != null && !linha.isEmpty()){
                 String[] linhavetor = linha.split(";");
                 Especialidade e = new Especialidade(Integer.valueOf(linhavetor[0]),linhavetor[1], linhavetor[2]);
                 especialidades.add(e);

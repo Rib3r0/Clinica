@@ -10,20 +10,29 @@ public class PlanoDeSaude {
 	//construtor da classe
 	public PlanoDeSaude(String operadora) {
 		this.operadora = operadora;
+                contador++;
 		this.codigo = contador;
-		contador++;
+		
 	}
 	
 	public PlanoDeSaude(String operadora, String tipoDoPlano) {
 		this.operadora = operadora;
 		this.tipoDoPlano = tipoDoPlano;
+                contador++;
 		this.codigo = contador;
-		contador++;
+		
+	}
+        public PlanoDeSaude(Integer codigo, String operadora, String tipoDoPlano) {
+		this.operadora = operadora;
+		this.tipoDoPlano = tipoDoPlano;
+		this.codigo = codigo;
+		this.contador = codigo++;
 	}
 	
 	public PlanoDeSaude() {
+                contador++;
 		this.codigo = contador;
-		contador++;
+		
 	}
 	
 	//Métodos de acesso
@@ -63,6 +72,11 @@ public class PlanoDeSaude {
         public Integer getCodigo() {
             return codigo;
         }
+        
+            
+    public String getPlanoDeSaudeComPontoVirgula(){
+        return this.getCodigo() + ";" + this.getOperadora()+ ";" + this.getTipoDoPlano();
+    }
 	
         
 

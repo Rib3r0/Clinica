@@ -21,8 +21,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
-        PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
-        EspecialidadeDAO.criarEspecialidadesTeste();
+        PlanoDeSaudeDAO.getListaPlanosDeSaude();
+        EspecialidadeDAO.getListaEspecialidades();
         initPanels();   
     }
 

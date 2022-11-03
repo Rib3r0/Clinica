@@ -10,26 +10,29 @@ public class Especialidade {
 
     // Métodos de acesso / getters and setters
     public Especialidade() {
-        this.codigo = contador;
         contador++;
+        this.codigo = contador;
+       
     }
 
     public Especialidade(String nome) {
         this.nome = nome;
-        this.codigo = contador;
         contador++;
+        this.codigo = contador;
+        
     }
     public Especialidade(String nome,String descricao) {
         this.nome = nome;
         this.descricao = descricao;
-        this.codigo = contador;
         contador++;
+        this.codigo = contador;
+        
     }
     public Especialidade(Integer codigo, String nome,String descricao) {
         this.nome = nome;
         this.descricao = descricao;
         this.codigo = codigo;
-        contador++;
+        this.contador = codigo++;
     }
 
     public void setNome(String nome) {

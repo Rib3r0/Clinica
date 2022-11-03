@@ -1,13 +1,32 @@
 package br.senai.sp.jandira.dao;
 
+import static br.senai.sp.jandira.dao.EspecialidadeDAO.bw;
+import br.senai.sp.jandira.model.Especialidade;
 import java.util.ArrayList;
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDAO {
 
     private PlanoDeSaude planoDeSaude;
     private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
+    
+    private static final String caminho ="C:\\Users\\22282115\\Java\\Plano_de_Saude.txt";
+    private static final String caminho_temp ="C:\\Users\\22282115\\Java\\Plano_de_Saude_temp.txt";
+    private static final Path path = Paths.get(caminho) ;
+    private static final Path path_temp = Paths.get(caminho_temp) ;
+    public static BufferedWriter bw;
 
     public PlanoDeSaudeDAO(PlanoDeSaude planoDeSaude) {
         this.planoDeSaude = planoDeSaude;
@@ -18,6 +37,20 @@ public class PlanoDeSaudeDAO {
     }
 
     public static void gravar(PlanoDeSaude planoDeSaude) {
+        try {
+            
+            bw = Files.newBufferedWriter(path,StandardOpenOption.APPEND, StandardOpenOption.WRITE);
+            bw.write(planoDeSaude.getPlanoDeSaudeComPontoVirgula());
+            bw.newLine();
+            bw.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Ocorreu um erro ao gravar.\n\nEntre em contato com o suporte.", 
+                    "ERRO", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
         planos.add(planoDeSaude);
     }
 
@@ -25,9 +58,42 @@ public class PlanoDeSaudeDAO {
         for(PlanoDeSaude ps : planos){
             if(ps.getCodigo().equals(codigo)){
                 planos.remove(ps);
-                return true;
+                break;
             }
         }
+        
+        //reconstruir um arquivo atualizado
+        
+        //Passo 01 - Criar uma representação dos arquivos que vão ser manipulados
+        File arquivoAtual = new File(caminho);
+        File arquivoTemp = new File(caminho_temp);
+        
+        try {
+            //criar arquivo temporário
+            arquivoTemp.createNewFile();
+            //abre o arquivo para escrita
+            BufferedWriter bwTemp = Files.newBufferedWriter(
+                    path_temp, 
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.WRITE);
+            
+            for(PlanoDeSaude p : planos){
+                bwTemp.write(p.getPlanoDeSaudeComPontoVirgula());
+                bwTemp.newLine();
+            }
+            bwTemp.close();
+            arquivoAtual.delete();
+            arquivoTemp.renameTo(arquivoAtual);
+            
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Ocorreu um erro na hora de criar o arquivo!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
         return false;
     }
     public static PlanoDeSaude getPlanoDeSaude(Integer codigo){
@@ -37,6 +103,7 @@ public class PlanoDeSaudeDAO {
                 return ps;
             }
         }
+        
         
         return null;
     }
@@ -48,21 +115,61 @@ public class PlanoDeSaudeDAO {
                 break;
             }
         }
+                 
+        //reconstruir um arquivo atualizado
+        
+        //Passo 01 - Criar uma representação dos arquivos que vão ser manipulados
+        File arquivoAtual = new File(caminho);
+        File arquivoTemp = new File(caminho_temp);
+        
+        try {
+            //criar arquivo temporário
+            arquivoTemp.createNewFile();
+            //abre o arquivo para escrita
+            BufferedWriter bwTemp = Files.newBufferedWriter(
+                    path_temp, 
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.WRITE);
+            
+            for(PlanoDeSaude p : planos){
+                bwTemp.write(p.getPlanoDeSaudeComPontoVirgula());
+                bwTemp.newLine();
+            }
+            bwTemp.close();
+            arquivoAtual.delete();
+            arquivoTemp.renameTo(arquivoAtual);
+            
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                    null, 
+                    "Ocorreu um erro na hora de criar o arquivo!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+        }
+     
     }
 
     public static ArrayList<PlanoDeSaude> listarTodos() {
         return planos;
     }
 
-    public static void criarPlanosDeSaudeTeste() {
-        PlanoDeSaude p1 = new PlanoDeSaude("Unimed", "Bronze");
-        PlanoDeSaude p2 = new PlanoDeSaude("Unimed", "Ouro");
-        PlanoDeSaude p3 = new PlanoDeSaude("Amil", "Advenced");
-        PlanoDeSaude p4 = new PlanoDeSaude("Bradesco", "Exclusive");
-        planos.add(p1);
-        planos.add(p2);
-        planos.add(p3);
-        planos.add(p4);
+    public static void getListaPlanosDeSaude() {
+        try {     
+            BufferedReader br = Files.newBufferedReader(path);
+            String linha = "";
+            linha = br.readLine();
+            while(linha != null && !linha.isEmpty()){
+                String[] linhavetor = linha.split(";");
+                PlanoDeSaude p = new PlanoDeSaude(Integer.valueOf(linhavetor[0]),linhavetor[1], linhavetor[2]);
+                planos.add(p);
+                linha = br.readLine();  
+            }
+            br.close();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "DEU MERDA!!!");
+        }
+
     }
 
     public static DefaultTableModel getTableModel() {
