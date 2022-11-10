@@ -1,7 +1,5 @@
 package br.senai.sp.jandira.dao;
 
-import static br.senai.sp.jandira.dao.EspecialidadeDAO.bw;
-import br.senai.sp.jandira.model.Especialidade;
 import java.util.ArrayList;
 import br.senai.sp.jandira.model.PlanoDeSaude;
 import java.io.BufferedReader;
@@ -12,8 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

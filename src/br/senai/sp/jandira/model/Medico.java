@@ -1,78 +1,37 @@
 package br.senai.sp.jandira.model;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class Medico {
-	// atributos
-	private String nome;
-	private LocalDate dataDeNascimento;
-	private String sexo;
-	private Especialidade[] especialidades;
-	private String crm;
+public class Medico extends Pessoa {
+    // atributos
+    //codigo crm nome
+    private ArrayList<Especialidade> especialidades;
+    private String crm;
 
-	// métodos de acesso
-	// nome
-	public void setNome(String nome) {
+    // métodos de acesso
+    // especialidades
+    public void setEspecialidades(ArrayList<Especialidade> especialidades) {
 
-		this.nome = nome;
+        this.especialidades = especialidades;
 
-	}
+    }
 
-	public String getNome() {
+    public ArrayList<Especialidade> getEspecialidades() {
 
-		return nome;
+        return especialidades;
 
-	}
+    }
 
-	// data de nascimento
-	public void setDataDeNascimento(LocalDate dataDeNascimento) {
+    // CRM
+    public void setCrm(String crm) {
 
-		this.dataDeNascimento = dataDeNascimento;
+        this.crm = crm;
 
-	}
+    }
 
-	public LocalDate getDataDeNascimento() {
+    public String getCrm() {
 
-		return dataDeNascimento;
+        return crm;
 
-	}
-
-	// sexo
-	public void setSexo(String sexo) {
-
-		this.sexo = sexo;
-
-	}
-
-	public String getSexo() {
-
-		return sexo;
-
-	}
-
-	// especialidades
-	public void setEspecialidades(Especialidade[] especialidades) {
-
-		this.especialidades = especialidades;
-
-	}
-
-	public Especialidade[] getEspecialidades() {
-
-		return especialidades;
-
-	}
-
-	// CRM
-	public void setCrm(String crm) {
-
-		this.crm = crm;
-
-	}
-
-	public String getCrm() {
-
-		return crm;
-
-	}
+    }
 }
