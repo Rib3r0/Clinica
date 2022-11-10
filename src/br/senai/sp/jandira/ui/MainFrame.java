@@ -5,6 +5,7 @@
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
+import br.senai.sp.jandira.dao.MedicoDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         PlanoDeSaudeDAO.getListaPlanosDeSaude();
         EspecialidadeDAO.getListaEspecialidades();
+        MedicoDAO.getListaMedicos();
         initPanels();   
     }
 
@@ -31,6 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     JPanel ultimoPanel;
     PanelPlanosDeSaude panelPlanosDeSaude;
     PanelEspecialidade panelEspecialidade;
+    PanelMedico panelMedico;
 
     // Constantes da classe
     private final int POSICAO_X = 30;
@@ -228,6 +231,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMedicosActionPerformed
         mudarCor(buttonMedicos);
+        mudarPanel(panelMedico);
     }//GEN-LAST:event_buttonMedicosActionPerformed
 
     private void buttonEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEspecialidadesActionPerformed
@@ -303,6 +307,11 @@ public class MainFrame extends javax.swing.JFrame {
         panelEspecialidade.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
         panelEspecialidade.setVisible(false);
         getContentPane().add(panelEspecialidade);
+        
+        panelMedico = new PanelMedico();
+        panelMedico.setBounds(POSICAO_X, POSICAO_Y, LARGURA, ALTURA);
+        panelMedico.setVisible(false);
+        getContentPane().add(panelMedico);
        
         
     }

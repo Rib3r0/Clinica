@@ -18,10 +18,10 @@ public class PlanoDeSaudeDAO {
     private PlanoDeSaude planoDeSaude;
     private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
     
-    private static final String caminho ="C:\\Users\\22282115\\Java\\Plano_de_Saude.txt";
-    private static final String caminho_temp ="C:\\Users\\22282115\\Java\\Plano_de_Saude_temp.txt";
-    private static final Path path = Paths.get(caminho) ;
-    private static final Path path_temp = Paths.get(caminho_temp) ;
+    private static final String arquivo ="C:\\Users\\22282115\\Java\\Plano_de_Saude.txt";
+    private static final String arquivo_temp ="C:\\Users\\22282115\\Java\\Plano_de_Saude_temp.txt";
+    private static final Path path = Paths.get(arquivo) ;
+    private static final Path path_temp = Paths.get(arquivo_temp) ;
     public static BufferedWriter bw;
 
     public PlanoDeSaudeDAO(PlanoDeSaude planoDeSaude) {
@@ -61,8 +61,8 @@ public class PlanoDeSaudeDAO {
         //reconstruir um arquivo atualizado
         
         //Passo 01 - Criar uma representação dos arquivos que vão ser manipulados
-        File arquivoAtual = new File(caminho);
-        File arquivoTemp = new File(caminho_temp);
+        File arquivoAtual = new File(arquivo);
+        File arquivoTemp = new File(arquivo_temp);
         
         try {
             //criar arquivo temporário
@@ -115,8 +115,8 @@ public class PlanoDeSaudeDAO {
         //reconstruir um arquivo atualizado
         
         //Passo 01 - Criar uma representação dos arquivos que vão ser manipulados
-        File arquivoAtual = new File(caminho);
-        File arquivoTemp = new File(caminho_temp);
+        File arquivoAtual = new File(arquivo);
+        File arquivoTemp = new File(arquivo_temp);
         
         try {
             //criar arquivo temporário

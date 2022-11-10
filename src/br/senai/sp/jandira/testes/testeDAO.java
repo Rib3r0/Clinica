@@ -4,65 +4,87 @@ import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 
 public class testeDAO {
 
     public static void main(String[] args) {
-        
-//        String[] linha0 = {"Cotia","Itapevi", "Carapicuiba"};
-//        String[] linha1 = {"Sãopaulo","Itapevi", "Jandira"};
-//        String[] linha2 = {"Cotia","Osasco", "Jandira"};
-//        String[] linha3 = {"Cotia","Pará", "Jandira"};
 //        
-//        String[][] linhas = {linha0, linha1, linha2, linha3};
+////        String[] linha0 = {"Cotia","Itapevi", "Carapicuiba"};
+////        String[] linha1 = {"Sãopaulo","Itapevi", "Jandira"};
+////        String[] linha2 = {"Cotia","Osasco", "Jandira"};
+////        String[] linha3 = {"Cotia","Pará", "Jandira"};
+////        
+////        String[][] linhas = {linha0, linha1, linha2, linha3};
+////        
+////        System.out.println(linhas[2][0]);
+////        
+////        PlanoDeSaude plano1 = new PlanoDeSaude("Amil", "Basic");
+////        PlanoDeSaude plano2 = new PlanoDeSaude("Allianz", "Bronze");
+////        PlanoDeSaude plano3 = new PlanoDeSaude("Unimed", "Prata");
+////        PlanoDeSaude plano4 = new PlanoDeSaude("Notredame", "Ouro");
+////
+////        PlanoDeSaudeDAO.gravar(plano1);
+////        PlanoDeSaudeDAO.gravar(plano2);
+////
+////        for (PlanoDeSaude plano : PlanoDeSaudeDAO.listarTodos()) {
+////            System.out.println(plano.getOperadora());
+////        }
+////        System.out.println("-----------------------------");
+////
+////        PlanoDeSaudeDAO dao2 = new PlanoDeSaudeDAO();
+////        dao2.gravar(plano3);
+////        dao2.gravar(plano4);
+////
+////        for (PlanoDeSaude plano : PlanoDeSaudeDAO.listarTodos()) {
+////            System.out.println(plano.getOperadora());
+////        }
+//        Especialidade especialidade1 = new Especialidade("Cardiologia","Area que cuida do coração");
+//        Especialidade especialidade2 = new Especialidade("Pediatria","Area que cuida da saúde das crianças");
+//        Especialidade especialidade3 = new Especialidade("Otorrinolaringologia","Area que cuida do nariz ouvidos e garganta");
+//        Especialidade especialidade4 = new Especialidade("Clinico Geral","Area que cuida da saúde em geral");
 //        
-//        System.out.println(linhas[2][0]);
+//        EspecialidadeDAO.gravar(especialidade1);
+//        EspecialidadeDAO.gravar(especialidade2);
+//        EspecialidadeDAO.gravar(especialidade3);
+//        EspecialidadeDAO.gravar(especialidade4);
 //        
-//        PlanoDeSaude plano1 = new PlanoDeSaude("Amil", "Basic");
-//        PlanoDeSaude plano2 = new PlanoDeSaude("Allianz", "Bronze");
-//        PlanoDeSaude plano3 = new PlanoDeSaude("Unimed", "Prata");
-//        PlanoDeSaude plano4 = new PlanoDeSaude("Notredame", "Ouro");
-//
-//        PlanoDeSaudeDAO.gravar(plano1);
-//        PlanoDeSaudeDAO.gravar(plano2);
-//
-//        for (PlanoDeSaude plano : PlanoDeSaudeDAO.listarTodos()) {
-//            System.out.println(plano.getOperadora());
+//        for (Especialidade especialidade : EspecialidadeDAO.listarTodos()) {
+//           System.out.println(especialidade.getCodigo());
+//           System.out.println(especialidade.getNome());
+//           System.out.println(especialidade.getDescricao());
+//           System.out.println("-----------------------------");   
 //        }
-//        System.out.println("-----------------------------");
-//
-//        PlanoDeSaudeDAO dao2 = new PlanoDeSaudeDAO();
-//        dao2.gravar(plano3);
-//        dao2.gravar(plano4);
-//
-//        for (PlanoDeSaude plano : PlanoDeSaudeDAO.listarTodos()) {
-//            System.out.println(plano.getOperadora());
+//        EspecialidadeDAO.excluir(100);
+//        for (Especialidade especialidade : EspecialidadeDAO.listarTodos()) {
+//           System.out.println(especialidade.getCodigo());
+//           System.out.println(especialidade.getNome());
+//           System.out.println(especialidade.getDescricao());
+//           System.out.println("-----------------------------");   
 //        }
-        Especialidade especialidade1 = new Especialidade("Cardiologia","Area que cuida do coração");
-        Especialidade especialidade2 = new Especialidade("Pediatria","Area que cuida da saúde das crianças");
-        Especialidade especialidade3 = new Especialidade("Otorrinolaringologia","Area que cuida do nariz ouvidos e garganta");
-        Especialidade especialidade4 = new Especialidade("Clinico Geral","Area que cuida da saúde em geral");
-        
-        EspecialidadeDAO.gravar(especialidade1);
-        EspecialidadeDAO.gravar(especialidade2);
-        EspecialidadeDAO.gravar(especialidade3);
-        EspecialidadeDAO.gravar(especialidade4);
-        
-        for (Especialidade especialidade : EspecialidadeDAO.listarTodos()) {
-           System.out.println(especialidade.getCodigo());
-           System.out.println(especialidade.getNome());
-           System.out.println(especialidade.getDescricao());
-           System.out.println("-----------------------------");   
-        }
-        EspecialidadeDAO.excluir(100);
-        for (Especialidade especialidade : EspecialidadeDAO.listarTodos()) {
-           System.out.println(especialidade.getCodigo());
-           System.out.println(especialidade.getNome());
-           System.out.println(especialidade.getDescricao());
-           System.out.println("-----------------------------");   
-        }
-        
+//                String codigoEspecialidades = "";
 
+
+        ArrayList<String> teste = new ArrayList<>();
+        teste.add("a");
+        teste.add("b");
+        teste.add("c");
+        teste.add("d");
+        teste.add("e");
+        teste.add("f");
+        String testepontoeVirgula = "";
+        for(String e : teste){
+            
+            testepontoeVirgula += e + ";";
+        }
+        
+        System.out.println(testepontoeVirgula);
+        
+        LocalDate a = LocalDate.of(2000, Month.MARCH, 10);
+        System.out.println(a);
     }
+
 
 }
