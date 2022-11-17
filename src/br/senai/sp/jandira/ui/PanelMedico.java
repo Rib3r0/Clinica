@@ -140,13 +140,13 @@ public class PanelMedico extends javax.swing.JPanel {
     private void excluir() {
 
         int resposta = JOptionPane.showConfirmDialog(this,
-                "Você confirma a exclusão da especialidade selecionada?",
-                "Especialidades",
+                "Você confirma a exclusão do(a) medico(a) selecionado?",
+                "Medico",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
 
         if (resposta == 0) {
-            EspecialidadeDAO.excluir(getCodigo());
+            MedicoDAO.excluir(getCodigo());
             criarTabelaMedico();
         }
 
@@ -176,6 +176,7 @@ public class PanelMedico extends javax.swing.JPanel {
         tableMedico.getColumnModel().getColumn(1).setPreferredWidth(100);
         tableMedico.getColumnModel().getColumn(2).setPreferredWidth(367);
         tableMedico.getColumnModel().getColumn(3).setPreferredWidth(100);
+        
 
         //impedir movimentação da coluna
         tableMedico.getTableHeader().setReorderingAllowed(false);

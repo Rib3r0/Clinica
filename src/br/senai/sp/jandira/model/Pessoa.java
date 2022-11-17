@@ -24,6 +24,13 @@ public class Pessoa {
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
+    public String getDataNascimentoComBarra() {
+        
+        String[] separado =  dataNascimento.toString().split("-");
+        String dataCerta = separado[2] + "/" + separado[1] + "/" + separado[0];
+        return dataCerta;
+    }
+    
 
     public void setNome(String nome) {
         this.nome = nome;

@@ -79,13 +79,11 @@ public class Medico extends Pessoa {
     
     public String getInformacoesMedicoComPontoVirgula() {
         String codigoEspecialidades = "";
-        for(Especialidade e : especialidades){
-            
-            codigoEspecialidades += e.getCodigo() + ";";
+        for(Especialidade e : especialidades){    
+        codigoEspecialidades += e.getCodigo() + ";";
         }
-        
-        
-        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimento() + ";" + codigoEspecialidades ;
+    
+        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimentoComBarra() + ";" + codigoEspecialidades ;
     
 }
     

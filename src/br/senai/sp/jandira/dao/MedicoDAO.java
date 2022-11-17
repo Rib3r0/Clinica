@@ -20,7 +20,7 @@ public class MedicoDAO {
     private static ArrayList<Medico> medicos = new ArrayList();
     
     private static final String arquivo ="C:\\Users\\22282115\\Java\\Medico.txt";
-    private static final String arquivo_temp ="C:\\Users\\22282115\\Java\\Medico.txt";
+    private static final String arquivo_temp ="C:\\Users\\22282115\\Java\\Medico_temp.txt";
     private static final Path path = Paths.get(arquivo) ;
     private static final Path path_temp = Paths.get(arquivo_temp) ;
     public static BufferedWriter bw;
@@ -131,10 +131,10 @@ public class MedicoDAO {
                    i++;
                 }
                 
-                String[] data = linhavetor[5].split("-");
-                int ano = Integer.parseInt(data[0]);
+                String[] data = linhavetor[5].split("/");
+                int ano = Integer.parseInt(data[2]);
                 int mes = Integer.parseInt(data[1]);
-                int dia = Integer.parseInt(data[2]);
+                int dia = Integer.parseInt(data[0]);
                 LocalDate dataDeNascimento = LocalDate.of(ano,mes, dia);
                 
                 Medico m = new Medico

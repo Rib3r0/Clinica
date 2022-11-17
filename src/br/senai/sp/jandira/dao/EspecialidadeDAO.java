@@ -165,4 +165,16 @@ public class EspecialidadeDAO {
         return tableModel;
 
         }
+        public static DefaultTableModel getTableModelNomes() {
+        Object[][] dados = new Object[especialidades.size()][1];
+        int i = 0;
+        for (Especialidade e : especialidades) {
+            dados[i][0] = e.getNome();
+            i++;
+        }
+                String[] titulos = {"Nome da especialidade"};
+        DefaultTableModel tableModel = new DefaultTableModel(dados, titulos);
+        return tableModel;
+
+        }
 }
