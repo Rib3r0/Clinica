@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -115,6 +116,15 @@ public class MedicoDAO {
             
         }
     }
+//        public String[] getEspecialidadesDoMedico(){
+//        String[] dados = new String[especialidades.size()];
+//        int i = 0;
+//        for (Especialidade e : especialidades) {
+//            dados[i]= e.getNome();
+//            i++;
+//        }
+//        return dados;
+//        }
     
         public static void getListaMedicos(){
         try {     
@@ -127,7 +137,7 @@ public class MedicoDAO {
                 int i = 0;
                 ArrayList<Especialidade> especialidades = new ArrayList<>();
                 while(linhavetor.length > i +6){
-                   especialidades.add(EspecialidadeDAO.getEspecialidade( Integer.getInteger(linhavetor[6+i])));
+                   especialidades.add(EspecialidadeDAO.getEspecialidade(Integer.valueOf(linhavetor[6+i])));
                    i++;
                 }
                 
@@ -146,6 +156,8 @@ public class MedicoDAO {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "DEU MERDA!!!");
         }
+        
+
    }
         public static DefaultTableModel getTableModel() {
         // Matriz receberá os planos de saúde
@@ -171,6 +183,8 @@ public class MedicoDAO {
         return tableModel;
 
         }
+        
+        
 }
     
 

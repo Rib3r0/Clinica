@@ -2,6 +2,7 @@ package br.senai.sp.jandira.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 public class Medico extends Pessoa {
     // atributos
@@ -86,5 +87,17 @@ public class Medico extends Pessoa {
         return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimentoComBarra() + ";" + codigoEspecialidades ;
     
 }
+    public ArrayList<String> getListaDeEspecialidadesDoMedico() {
+        ArrayList<String> dados = new ArrayList<>();
+        for (Especialidade e : especialidades) {
+            dados.add(e.getNome());
+        }
+        DefaultListModel<String> ListaModel = new DefaultListModel<>();
+        
+        ListaModel.addAll(dados);
+        
+        return dados;
+
     
+    }
 }

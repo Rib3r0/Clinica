@@ -8,8 +8,9 @@ import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.TipoOperacao;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
 
 
@@ -17,6 +18,12 @@ public class DialogMedico extends javax.swing.JDialog {
 
     private TipoOperacao tipoOperacao;
     private Medico medico;
+    
+    private DefaultListModel<String> listaDasEspecialidades = new DefaultListModel<>();
+    private ArrayList<String> especialidades = new ArrayList<>();
+    
+    private DefaultListModel<String> listaDasEspecialidadesDoMedico = new DefaultListModel<>();
+    private ArrayList<String> selecionadas = new ArrayList<>();
 
     public DialogMedico(
             java.awt.Frame parent,
@@ -38,7 +45,7 @@ public class DialogMedico extends javax.swing.JDialog {
     }
 
     private void preencherFormulario() {
-        tituloLabel.setText("Especialidade - " + tipoOperacao);
+        tituloLabel.setText("Medico - " + tipoOperacao);
         LabelIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/img/edit.png")));
         textFieldCodigo.setText(medico.getCodigo().toString());
         textFieldNomeDoMedico.setText(medico.getNome());
@@ -79,10 +86,10 @@ public class DialogMedico extends javax.swing.JDialog {
         buttonRetirar = new javax.swing.JButton();
         buttonAdicionar = new javax.swing.JButton();
         formattedTextFieldDataDeNascimento = new javax.swing.JFormattedTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        TableEspecialidadesDoMedico = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        TableEspecialidades = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListEspecialidades = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ListEspecialidadesDoMedico = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Adicionar");
@@ -238,37 +245,20 @@ public class DialogMedico extends javax.swing.JDialog {
         jPanel2.add(formattedTextFieldDataDeNascimento);
         formattedTextFieldDataDeNascimento.setBounds(590, 130, 130, 30);
 
-        TableEspecialidadesDoMedico.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(TableEspecialidadesDoMedico);
+        ListEspecialidades.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(ListEspecialidades);
 
-        jPanel2.add(jScrollPane3);
-        jScrollPane3.setBounds(270, 200, 120, 150);
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(50, 200, 110, 150);
 
-        TableEspecialidades.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane4.setViewportView(TableEspecialidades);
+        jScrollPane2.setViewportView(ListEspecialidadesDoMedico);
 
-        jPanel2.add(jScrollPane4);
-        jScrollPane4.setBounds(50, 200, 120, 150);
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(260, 200, 110, 150);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 110, 750, 360);
@@ -309,7 +299,22 @@ public class DialogMedico extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonRetirarActionPerformed
 
     private void buttonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarActionPerformed
-        // TODO add your handling code here:
+        List<String> especialidadesDoMedico = ListEspecialidades.getSelectedValuesList();
+        
+        for(String e : especialidadesDoMedico){
+            selecionadas.add(e);
+        }
+        
+        listaDasEspecialidadesDoMedico.clear();
+        listaDasEspecialidadesDoMedico.addAll(selecionadas);
+        ListEspecialidadesDoMedico.setModel(listaDasEspecialidadesDoMedico);
+        
+        int[] excluir = ListEspecialidades.getSelectedIndices();
+        for(int e : excluir){
+            listaDasEspecialidades.remove(e);
+        }
+        
+        
     }//GEN-LAST:event_buttonAdicionarActionPerformed
 
     private void formattedTextFieldDataDeNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formattedTextFieldDataDeNascimentoActionPerformed
@@ -408,8 +413,8 @@ public class DialogMedico extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelIcon;
-    private javax.swing.JTable TableEspecialidades;
-    private javax.swing.JTable TableEspecialidadesDoMedico;
+    private javax.swing.JList<String> ListEspecialidades;
+    private javax.swing.JList<String> ListEspecialidadesDoMedico;
     private javax.swing.JButton buttonAdicionar;
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonRetirar;
@@ -425,8 +430,8 @@ public class DialogMedico extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField textFieldCodigo;
     private javax.swing.JTextField textFieldCrm;
     private javax.swing.JTextField textFieldEmail;
@@ -441,21 +446,35 @@ public class DialogMedico extends javax.swing.JDialog {
         
     }
     private void atualizarListasEspecialidades(){
-        TableEspecialidades.setModel(EspecialidadeDAO.getTableModelNomes());
-
-        // Desativar
-        TableEspecialidades.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableEspecialidades.getTableHeader().setReorderingAllowed(false);
-        TableEspecialidades.getTableHeader().setResizingAllowed(false);
-        TableEspecialidades.getTableHeader().setVisible(false);
-        // Definir a largura de cada coluna
-        TableEspecialidades.getColumnModel().getColumn(0).setPreferredWidth(117);
-
-        //impedir movimentação da coluna
-        TableEspecialidades.getTableHeader().setReorderingAllowed(false);
-
-        //impedir edição das linhas
-        TableEspecialidades.setDefaultEditor(Object.class, null);
+        especialidades = EspecialidadeDAO.getListaDeNomes();
+        listaDasEspecialidades.addAll(especialidades);
+        ListEspecialidades.setModel(listaDasEspecialidades);
+        if(tipoOperacao == TipoOperacao.ADICIONAR){
+            
+        }else{
+            selecionadas = medico.getListaDeEspecialidadesDoMedico();
+            listaDasEspecialidadesDoMedico.addAll(selecionadas);         
+            ListEspecialidadesDoMedico.setModel(listaDasEspecialidadesDoMedico);
+            
+            int i = 0;
+            ArrayList<Integer> excluir = new ArrayList<Integer>();
+            for(String e : selecionadas){
+                
+                if(e.equals("Otorrino")){
+                    especialidades.remove(i);
+                }
+                
+                i++;
+            }
+            
+            for(int e : excluir){
+            listaDasEspecialidades.remove(e);
+        }
+            
+            listaDasEspecialidades.clear();
+            listaDasEspecialidades.addAll(especialidades);
+            
+        }
 
     }
         
