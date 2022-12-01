@@ -134,6 +134,7 @@ public class PanelMedico extends javax.swing.JPanel {
 
         DialogMedico dialogMedico = new DialogMedico(null, true, TipoOperacao.ALTERAR, medico);
         dialogMedico.setVisible(true);
+        dialogMedico.atualizarListasEspecialidades();
         criarTabelaMedico();
     }
 

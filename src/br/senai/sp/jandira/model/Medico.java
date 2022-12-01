@@ -80,8 +80,13 @@ public class Medico extends Pessoa {
     
     public String getInformacoesMedicoComPontoVirgula() {
         String codigoEspecialidades = "";
-        for(Especialidade e : especialidades){    
-        codigoEspecialidades += e.getCodigo() + ";";
+        for(Especialidade e : especialidades){   
+            if(e == null){
+                
+            }else{
+                codigoEspecialidades += e.getCodigo() + ";";
+            }
+        
         }
     
         return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimentoComBarra() + ";" + codigoEspecialidades ;
@@ -90,7 +95,12 @@ public class Medico extends Pessoa {
     public ArrayList<String> getListaDeEspecialidadesDoMedico() {
         ArrayList<String> dados = new ArrayList<>();
         for (Especialidade e : especialidades) {
-            dados.add(e.getNome());
+            if(e == null){
+               
+            }else{
+                dados.add(e.getNome());
+            }
+            
         }
         DefaultListModel<String> ListaModel = new DefaultListModel<>();
         

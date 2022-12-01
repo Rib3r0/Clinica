@@ -6,7 +6,13 @@ import br.senai.sp.jandira.dao.MedicoDAO;
 import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.TipoOperacao;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -41,8 +47,7 @@ public class DialogMedico extends javax.swing.JDialog {
 
         // Preencher os campos, caso o tipo de operação for ALTERAR
         if (tipoOperacao == tipoOperacao.ALTERAR) {
-            preencherFormulario();
-            atualizarListasEspecialidades();
+            preencherFormulario();           
         }
 
     }
@@ -56,6 +61,7 @@ public class DialogMedico extends javax.swing.JDialog {
         formattedTextFieldDataDeNascimento.setText(medico.getDataNascimentoComBarra());
         textFieldEmail.setText(medico.getEmail());
         textFieldTelefone.setText(medico.getTelefone());
+        atualizarListasEspecialidades();
     }
 
     /**
@@ -80,7 +86,6 @@ public class DialogMedico extends javax.swing.JDialog {
         buttonSalvar = new javax.swing.JButton();
         buttonCancelar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        textFieldTelefone = new javax.swing.JTextField();
         textFieldEmail = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -93,6 +98,7 @@ public class DialogMedico extends javax.swing.JDialog {
         ListEspecialidades = new javax.swing.JList<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         ListEspecialidadesDoMedico = new javax.swing.JList<>();
+        textFieldTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Adicionar");
@@ -177,14 +183,6 @@ public class DialogMedico extends javax.swing.JDialog {
         jPanel2.add(jLabel5);
         jLabel5.setBounds(250, 170, 180, 20);
 
-        textFieldTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldTelefoneActionPerformed(evt);
-            }
-        });
-        jPanel2.add(textFieldTelefone);
-        textFieldTelefone.setBounds(40, 130, 140, 30);
-
         textFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldEmailActionPerformed(evt);
@@ -237,8 +235,11 @@ public class DialogMedico extends javax.swing.JDialog {
         jPanel2.add(buttonAdicionar);
         buttonAdicionar.setBounds(190, 220, 50, 40);
 
-        formattedTextFieldDataDeNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        formattedTextFieldDataDeNascimento.setText("01/01/0000");
+        try {
+            formattedTextFieldDataDeNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         formattedTextFieldDataDeNascimento.setToolTipText("dd/mm/aaaa");
         formattedTextFieldDataDeNascimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,6 +263,19 @@ public class DialogMedico extends javax.swing.JDialog {
 
         jPanel2.add(jScrollPane2);
         jScrollPane2.setBounds(260, 200, 110, 150);
+
+        try {
+            textFieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        textFieldTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldTelefoneActionPerformed(evt);
+            }
+        });
+        jPanel2.add(textFieldTelefone);
+        textFieldTelefone.setBounds(40, 130, 140, 30);
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 110, 750, 360);
@@ -289,10 +303,6 @@ public class DialogMedico extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buttonSalvarActionPerformed
 
-    private void textFieldTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldTelefoneActionPerformed
-
     private void textFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldEmailActionPerformed
@@ -313,9 +323,9 @@ public class DialogMedico extends javax.swing.JDialog {
         listaDasEspecialidades.addAll(especialidades);
         ListEspecialidades.setModel(listaDasEspecialidades);
         
-        int[] excluir = ListEspecialidadesDoMedico.getSelectedIndices();
-        for(int e : excluir){
-            listaDasEspecialidadesDoMedico.remove(e);
+        List<String> excluir = ListEspecialidadesDoMedico.getSelectedValuesList();
+        for(String e : excluir){
+            listaDasEspecialidadesDoMedico.removeElement(e);
             selecionadas.remove(e);
         }
         
@@ -338,11 +348,11 @@ public class DialogMedico extends javax.swing.JDialog {
         listaDasEspecialidadesDoMedico.addAll(selecionadas);
         ListEspecialidadesDoMedico.setModel(listaDasEspecialidadesDoMedico);
         
-        int[] excluir = ListEspecialidades.getSelectedIndices();
-        for(int e : excluir){
-            listaDasEspecialidades.remove(e);
+        List<String> excluir = ListEspecialidades.getSelectedValuesList();
+        
+        for(String e : excluir){
+            listaDasEspecialidades.removeElement(e);
             especialidades.remove(e);
-            
         }
         
         
@@ -351,6 +361,10 @@ public class DialogMedico extends javax.swing.JDialog {
     private void formattedTextFieldDataDeNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formattedTextFieldDataDeNascimentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_formattedTextFieldDataDeNascimentoActionPerformed
+
+    private void textFieldTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldTelefoneActionPerformed
 
     private void gravar() {
         // Criar um objeto plano de saúde
@@ -438,6 +452,16 @@ public class DialogMedico extends javax.swing.JDialog {
             formattedTextFieldDataDeNascimento.requestFocus();
             return false;
         }
+        if (null == dataCorreta()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Data de nascimento invalida!",
+                    "Medico",
+                    JOptionPane.ERROR_MESSAGE);
+            formattedTextFieldDataDeNascimento.requestFocus();
+            return false;
+        }
+        
         return true;
     }
 
@@ -468,23 +492,39 @@ public class DialogMedico extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldCrm;
     private javax.swing.JTextField textFieldEmail;
     private javax.swing.JTextField textFieldNomeDoMedico;
-    private javax.swing.JTextField textFieldTelefone;
+    private javax.swing.JFormattedTextField textFieldTelefone;
     private javax.swing.JLabel tituloLabel;
     // End of variables declaration//GEN-END:variables
     private LocalDate dataCorreta(){
         String[] data = formattedTextFieldDataDeNascimento.getText().split("/");
-        
+        if(validarData()){
         return LocalDate.of(Integer.parseInt(data[2]), Integer.parseInt(data[1]), Integer.parseInt(data[0]));
+        }
+         return null;
+     
+    }
+    private boolean validarData(){
+    String dateFormat = "dd/MM/uuuu";
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormat).withResolverStyle(ResolverStyle.STRICT);
+        
+    try {
+        LocalDate date = LocalDate.parse(formattedTextFieldDataDeNascimento.getText(), dateTimeFormatter);
+        return true;
+    } catch (DateTimeParseException e) {
+       return false;
+    }
         
     }
-    private void atualizarListasEspecialidades(){
+    
+    public void atualizarListasEspecialidades(){
         especialidades = EspecialidadeDAO.getListaDeNomes();
         listaDasEspecialidades.addAll(especialidades);
         ListEspecialidades.setModel(listaDasEspecialidades);
         if(tipoOperacao == TipoOperacao.ADICIONAR){
             
         }else{
-            especialidadesSelecionadas = medico.getEspecialidades() ;
+            
+            especialidadesSelecionadas = medico.getEspecialidades();
             selecionadas = medico.getListaDeEspecialidadesDoMedico();
             listaDasEspecialidadesDoMedico.clear();
             listaDasEspecialidadesDoMedico.addAll(selecionadas);         
